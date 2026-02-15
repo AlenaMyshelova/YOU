@@ -1,6 +1,6 @@
 ---
 name: "✨ Feature Request"
-about: Suggest a new feature or improvement
+about: Suggest a new feature or improvement for YOU
 title: "[FEATURE] "
 labels: ["enhancement"]
 assignees: ""
@@ -8,16 +8,34 @@ assignees: ""
 
 ## Problem
 
-What problem does this feature solve? Is it related to a frustration?
+<!-- What problem does this feature solve? Why is it needed? -->
 
 ## Proposed Solution
 
-Describe how you'd like this to work.
+<!-- How should this work? Describe the expected behavior. -->
+
+## User Story
+
+<!-- Example: As a [user], I want to [action] so that [benefit]. -->
+
+As a ..., I want to ... so that ...
+
+## Platforms
+
+- [ ] iOS
+- [ ] Android
+- [ ] Web
+
+## Priority
+
+- [ ] Nice to have
+- [ ] Important
+- [ ] Critical
 
 ## Alternatives Considered
 
-List any alternative solutions or features you've considered.
+<!-- Any other approaches you've thought about? -->
 
 ## Additional Context
 
-Mockups, links, or any other context.
+<!-- Mockups, screenshots, links, or references. -->
