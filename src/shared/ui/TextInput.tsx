@@ -24,10 +24,10 @@ export const TextInput = forwardRef<RNTextInput, TextInputProps>(
         )}
         <RNTextInput
           ref={ref}
-          className={`border rounded-lg px-4 py-3 text-base text-secondary bg-surface ${
+          className={`border rounded-xl px-4 py-3 text-base text-secondary bg-surface ${
             error ? "border-error" : "border-border"
           } ${className ?? ""}`}
-          placeholderTextColor="#8E8E8E"
+          placeholderTextColor="#8A8279"
           autoCapitalize="none"
           {...props}
         />

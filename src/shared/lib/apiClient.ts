@@ -203,12 +203,34 @@ export const apiClient = {
   /**
    * Upload file with progress tracking.
    * Uses XMLHttpRequest for progress events (fetch doesn't support upload progress).
+   * In dev mode, returns a mock response instead of hitting the real API.
    */
   upload: <T>(
     endpoint: string,
     formData: FormData,
     onProgress?: (progress: number) => void,
   ): Promise<T> => {
+    // Mock interceptor for uploads in dev mode
+    if (__DEV__ && typeof jest === "undefined") {
+      const mockResult = handleMockRequest("POST", endpoint, undefined);
+      if (mockResult !== null) {
+        return new Promise((resolve) => {
+          // Simulate upload progress
+          let progress = 0;
+          const interval = setInterval(() => {
+            progress += 25;
+            onProgress?.(Math.min(progress, 100));
+            if (progress >= 100) {
+              clearInterval(interval);
+              // eslint-disable-next-line no-console
+              console.log(`[MOCK API] POST ${endpoint} (upload)`, mockResult);
+              resolve(mockResult as T);
+            }
+          }, 150);
+        });
+      }
+    }
+
     return new Promise(async (resolve, reject) => {
       const token = await tokenStorage.getAccessToken();
       const url = `${config.apiBaseUrl}${endpoint}`;

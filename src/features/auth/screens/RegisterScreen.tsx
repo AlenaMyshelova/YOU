@@ -9,11 +9,13 @@ import {
   Platform,
   ScrollView,
   TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button, TextInput } from "@shared/ui";
+import { YouLogo } from "@shared/ui/logo/YouLogo";
 import { useAuthStore } from "../store";
 import { registerSchema, type RegisterFormValues } from "../schemas";
 import { ApiError } from "@shared/lib/apiClient";
@@ -60,18 +62,23 @@ export function RegisterScreen({ onNavigateToLogin }: RegisterScreenProps) {
     }
   };
 
+  const Wrapper = Platform.OS === "web" ? View : KeyboardAvoidingView;
+  const wrapperProps = Platform.OS === "web" ? {} : { behavior: "padding" as const };
+  const { height: windowHeight } = useWindowDimensions();
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      className="flex-1 bg-background"
-    >
+    <Wrapper {...wrapperProps} className="flex-1 bg-background">
       <ScrollView
-        contentContainerClassName="flex-grow justify-center px-8 py-12"
+        style={Platform.OS === "web" ? { height: windowHeight } : { flex: 1 }}
+        contentContainerStyle={{
+          paddingHorizontal: 32,
+          paddingVertical: 48,
+        }}
         keyboardShouldPersistTaps="handled"
       >
-        <Text className="text-3xl font-bold text-secondary text-center mb-8">
-          Create Account
-        </Text>
+        <View className="items-center mb-10">
+          <YouLogo variant={3} width={140} tagline="join the garden" />
+        </View>
 
         {apiError && (
           <View className="bg-error/10 p-3 rounded-lg mb-4">
@@ -174,6 +181,6 @@ export function RegisterScreen({ onNavigateToLogin }: RegisterScreenProps) {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </Wrapper>
   );
 }

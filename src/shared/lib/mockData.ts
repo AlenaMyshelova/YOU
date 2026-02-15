@@ -282,6 +282,22 @@ export function handleMockRequest(
     return undefined; // 204
   }
 
+  // Create post (upload)
+  if (route === "POST /posts") {
+    const newPost: Post = {
+      id: `post-${Date.now()}`,
+      author: mockCurrentUser,
+      imageUrl: "https://picsum.photos/seed/newpost/600/600",
+      thumbnailUrl: "https://picsum.photos/seed/newpost/150/150",
+      caption: "New post",
+      likesCount: 0,
+      commentsCount: 0,
+      isLiked: false,
+      createdAt: new Date().toISOString(),
+    };
+    return newPost;
+  }
+
   // Notifications
   if (route === "GET /notifications") {
     const response: PaginatedResponse<AppNotification> = {

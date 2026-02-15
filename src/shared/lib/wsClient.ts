@@ -27,6 +27,12 @@ class WebSocketClient {
   private isIntentionallyClosed = false;
 
   async connect(): Promise<void> {
+    // Skip real WS connection in dev mode (using mock API)
+    if (__DEV__ && typeof jest === "undefined") {
+      logger.debug("WS: Skipped in dev mock mode");
+      return;
+    }
+
     if (this.ws?.readyState === WebSocket.OPEN) return;
 
     const token = await tokenStorage.getAccessToken();

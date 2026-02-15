@@ -11,7 +11,7 @@ interface LoadingSpinnerProps {
 
 export function LoadingSpinner({
   size = "large",
-  color = "#3897F0",
+  color = "#4A6741",
 }: LoadingSpinnerProps) {
   return (
     <View className="flex-1 items-center justify-center">

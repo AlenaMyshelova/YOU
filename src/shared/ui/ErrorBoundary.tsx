@@ -49,7 +49,7 @@ export class ErrorBoundary extends Component<Props, State> {
           </Text>
           <TouchableOpacity
             onPress={this.handleRetry}
-            className="bg-primary px-6 py-2.5 rounded-lg"
+            className="bg-primary px-6 py-2.5 rounded-xl"
           >
             <Text className="text-white font-semibold">Try Again</Text>
           </TouchableOpacity>

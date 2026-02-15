@@ -23,11 +23,11 @@ export const PostCard = memo(function PostCard({
   onPressComments,
 }: PostCardProps) {
   return (
-    <View className="bg-surface mb-2">
+    <View className="bg-surface mb-3 border-b border-border-light">
       {/* Header */}
       <TouchableOpacity
         onPress={() => onPressUser(post.author.id)}
-        className="flex-row items-center px-3 py-2"
+        className="flex-row items-center px-3 py-2.5"
       >
         <Avatar uri={post.author.avatarUrl} name={post.author.displayName} size="sm" />
         <Text className="ml-2 font-semibold text-secondary text-sm">
@@ -47,12 +47,14 @@ export const PostCard = memo(function PostCard({
       {/* Actions */}
       <View className="flex-row px-3 py-2">
         <TouchableOpacity onPress={() => onLike(post.id, post.isLiked)} className="mr-4">
-          <Text className={`text-2xl ${post.isLiked ? "text-error" : "text-secondary"}`}>
-            {post.isLiked ? "♥" : "♡"}
+          <Text
+            className={`text-2xl ${post.isLiked ? "text-primary" : "text-secondary"}`}
+          >
+            {post.isLiked ? "🌿" : "♡"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onPressComments(post.id)}>
-          <Text className="text-2xl text-secondary">💬</Text>
+          <Text className="text-2xl text-earth">💬</Text>
         </TouchableOpacity>
       </View>
 
