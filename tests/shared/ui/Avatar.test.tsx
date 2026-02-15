@@ -2,16 +2,21 @@
  * Component tests for Avatar.
  */
 import React from "react";
-import { View } from "react-native";
 import { render, screen } from "@testing-library/react-native";
 import { Avatar } from "@shared/ui/Avatar";
 
-// Mock expo-image
-jest.mock("expo-image", () => ({
-  Image: (props: Record<string, unknown>) => {
-    return <View {...props} testID="avatar-image" />;
-  },
-}));
+// Mock expo-image — must use require() inside factory to avoid out-of-scope variable error
+jest.mock("expo-image", () => {
+  return {
+    /* eslint-disable @typescript-eslint/no-require-imports */
+    Image: (props: Record<string, unknown>) =>
+      require("react").createElement(require("react-native").View, {
+        ...props,
+        testID: "avatar-image",
+      }),
+    /* eslint-enable @typescript-eslint/no-require-imports */
+  };
+});
 
 describe("Avatar", () => {
   it("renders initials when no URI provided", () => {
