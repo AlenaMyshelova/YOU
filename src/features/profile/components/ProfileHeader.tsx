@@ -23,9 +23,11 @@ export function ProfileHeader({
   const logout = useAuthStore((s) => s.logout);
 
   return (
-    <View className="px-4 py-4 bg-surface">
+    <View className="px-4 py-5 bg-surface border-b border-border-light">
       <View className="flex-row items-center">
-        <Avatar uri={user.avatarUrl} name={user.displayName} size="lg" />
+        <View className="rounded-full border-2 border-primary p-0.5">
+          <Avatar uri={user.avatarUrl} name={user.displayName} size="lg" />
+        </View>
         <View className="flex-1 flex-row justify-around ml-4">
           <StatItem count={user.postsCount} label="Posts" />
           <StatItem count={user.followersCount} label="Followers" />
@@ -34,7 +36,7 @@ export function ProfileHeader({
       </View>
 
       <Text className="font-semibold text-secondary mt-3">{user.displayName}</Text>
-      {user.bio ? <Text className="text-sm text-secondary mt-1">{user.bio}</Text> : null}
+      {user.bio ? <Text className="text-sm text-earth mt-1">{user.bio}</Text> : null}
 
       <View className="mt-3 gap-2">
         {isOwnProfile ? (

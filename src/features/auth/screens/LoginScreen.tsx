@@ -9,11 +9,13 @@ import {
   Platform,
   ScrollView,
   TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button, TextInput } from "@shared/ui";
+import { YouLogoShowcase } from "@shared/ui/logo/YouLogo";
 import { useAuthStore } from "../store";
 import { loginSchema, type LoginFormValues } from "../schemas";
 import { ApiError } from "@shared/lib/apiClient";
@@ -52,16 +54,34 @@ export function LoginScreen({ onNavigateToRegister }: LoginScreenProps) {
     }
   };
 
+  const Wrapper = Platform.OS === "web" ? View : KeyboardAvoidingView;
+  const wrapperProps = Platform.OS === "web" ? {} : { behavior: "padding" as const };
+  const { height: windowHeight } = useWindowDimensions();
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      className="flex-1 bg-background"
-    >
+    <Wrapper {...wrapperProps} className="flex-1 bg-background">
       <ScrollView
-        contentContainerClassName="flex-1 justify-center px-8"
+        style={Platform.OS === "web" ? { height: windowHeight } : { flex: 1 }}
+        contentContainerStyle={{
+          paddingHorizontal: 32,
+          paddingVertical: 48,
+        }}
         keyboardShouldPersistTaps="handled"
       >
-        <Text className="text-3xl font-bold text-secondary text-center mb-8">YOU</Text>
+        {/* Logo showcase — all 4 variants for review, scroll to see all */}
+        <View className="items-center mb-6">
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "600",
+              color: "#3B3226",
+              marginBottom: 12,
+            }}
+          >
+            Choose a logo variant:
+          </Text>
+          <YouLogoShowcase width={140} />
+        </View>
 
         {apiError && (
           <View className="bg-error/10 p-3 rounded-lg mb-4">
@@ -107,7 +127,7 @@ export function LoginScreen({ onNavigateToRegister }: LoginScreenProps) {
           title="Log In"
           onPress={handleSubmit(onSubmit)}
           loading={isSubmitting}
-          className="mt-2"
+          className="mt-4 rounded-xl"
         />
 
         <TouchableOpacity onPress={onNavigateToRegister} className="mt-6">
@@ -117,6 +137,6 @@ export function LoginScreen({ onNavigateToRegister }: LoginScreenProps) {
           </Text>
         </TouchableOpacity>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </Wrapper>
   );
 }

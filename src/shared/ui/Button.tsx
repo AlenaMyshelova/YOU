@@ -19,7 +19,7 @@ interface ButtonProps extends TouchableOpacityProps {
 
 const variantStyles = {
   primary: "bg-primary",
-  secondary: "bg-secondary",
+  secondary: "bg-earth",
   outline: "border border-border bg-transparent",
   ghost: "bg-transparent",
 };
@@ -54,7 +54,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <TouchableOpacity
-      className={`rounded-lg items-center justify-center flex-row ${variantStyles[variant]} ${sizeStyles[size]} ${
+      className={`rounded-xl items-center justify-center flex-row ${variantStyles[variant]} ${sizeStyles[size]} ${
         disabled || loading ? "opacity-50" : ""
       } ${className ?? ""}`}
       disabled={disabled || loading}
@@ -64,7 +64,7 @@ export function Button({
       {loading && (
         <ActivityIndicator
           size="small"
-          color={variant === "primary" || variant === "secondary" ? "#fff" : "#3897F0"}
+          color={variant === "primary" || variant === "secondary" ? "#fff" : "#4A6741"}
           className="mr-2"
         />
       )}

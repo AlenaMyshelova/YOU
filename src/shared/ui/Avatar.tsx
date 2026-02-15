@@ -42,7 +42,7 @@ export function Avatar({ uri, name, size = "md", className }: AvatarProps) {
 
   return (
     <View
-      className={`${s.container} rounded-full bg-muted items-center justify-center ${className ?? ""}`}
+      className={`${s.container} rounded-full bg-primary-light items-center justify-center ${className ?? ""}`}
     >
       <Text className={`${s.text} font-bold text-white`}>{initials}</Text>
     </View>
