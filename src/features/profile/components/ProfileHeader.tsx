@@ -4,6 +4,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Avatar, Button } from "@shared/ui";
+import { useAuthStore } from "@features/auth";
 import type { User } from "@shared/types";
 
 interface ProfileHeaderProps {
@@ -19,6 +20,8 @@ export function ProfileHeader({
   onEditProfile,
   onFollow,
 }: ProfileHeaderProps) {
+  const logout = useAuthStore((s) => s.logout);
+
   return (
     <View className="px-4 py-4 bg-surface">
       <View className="flex-row items-center">
@@ -33,14 +36,17 @@ export function ProfileHeader({
       <Text className="font-semibold text-secondary mt-3">{user.displayName}</Text>
       {user.bio ? <Text className="text-sm text-secondary mt-1">{user.bio}</Text> : null}
 
-      <View className="mt-3">
+      <View className="mt-3 gap-2">
         {isOwnProfile ? (
-          <Button
-            title="Edit Profile"
-            variant="outline"
-            size="sm"
-            onPress={onEditProfile}
-          />
+          <>
+            <Button
+              title="Edit Profile"
+              variant="outline"
+              size="sm"
+              onPress={onEditProfile}
+            />
+            <Button title="Logout" variant="outline" size="sm" onPress={logout} />
+          </>
         ) : (
           <Button
             title={user.isFollowing ? "Following" : "Follow"}
