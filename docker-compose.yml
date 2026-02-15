@@ -1,0 +1,28 @@
+# docker-compose.yml
+#
+# Local development helpers — NOT for native mobile builds.
+# Provides reproducible environment for linting, testing, and type-checking.
+#
+# Usage:
+#   docker compose run --rm app npm run lint        # Run linter
+#   docker compose run --rm app npm test            # Run tests
+#   docker compose run --rm app npm run typecheck   # Type check
+#   docker compose run --rm app sh                  # Interactive shell
+#
+# For actual mobile development, use:
+#   npx expo start                                  # Expo dev server (bare metal)
+#
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mount source for live changes (but not node_modules)
+      - ./src:/app/src
+      - ./tests:/app/tests
+    environment:
+      - NODE_ENV=test
+      - CI=true
+    # No ports needed — this is for CLI tasks only
