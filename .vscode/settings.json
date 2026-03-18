@@ -5,12 +5,7 @@
   "github.copilot.chat.mcp.servers": {
     "context7": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp",
-        "--api-key",
-        "ctx7sk-7d46354c-fe6d-4e61-b2d9-2621032de530"
-      ]
+      "args": ["-y", "@upstash/context7-mcp", "--api-key", "${env:UPSTASH_API_KEY}"]
     }
   }
 }
